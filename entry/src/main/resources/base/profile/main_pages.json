@@ -1,0 +1,14 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Login",
+    "pages/Register",
+    "pages/GoodDetails",
+    "pages/GoodPage",
+    "pages/PayPage",
+    "pages/AddressPage",
+    "pages/Mine",
+    "pages/OrderPage",
+    "pages/MindPage"
+  ]
+}
