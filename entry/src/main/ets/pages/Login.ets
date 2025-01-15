@@ -3,10 +3,15 @@ import { getPhone, LoginUser } from '../api/api'
 import PreferencesUtil from '../utils/PreferencesUtil'
 import { showToast } from '../utils/toast'
 import { user } from '../viewModel/user'
-
-class User {
-  phone: string
-  password: string
+interface RouterParams {
+  phone: string;
+  password: string;
+}
+interface stringRes {
+  data:string
+}
+interface userRes {
+  data:user
 }
 
 @Entry
@@ -18,13 +23,13 @@ struct Login {
   @State isGreen: boolean = true
   @State isLoading: boolean = false
   @State start: string = "";
-  selectedDate: string
   @State user: user = new user()
 
   aboutToAppear() {
-    if (router.getParams()) {
-      this.phone = router.getParams()["phone"] ;
-      this.password = router.getParams()["password"] ;
+    let t:RouterParams= router.getParams() as RouterParams
+    if (t) {
+      this.phone = t.phone ;
+      this.password = t.password ;
     }
     this.isGreen = true
   }
@@ -150,9 +155,9 @@ struct Login {
               showToast('请先同意条款', 2000)
               return
             }
-            let rp = await LoginUser(this.phone, this.password)
+            let rp:stringRes = await LoginUser(this.phone, this.password)
             this.start = rp.data
-            let rp2 = await getPhone(this.phone)
+            let rp2:userRes = await getPhone(this.phone)
             this.user = rp2.data
             if (this.start === "OK") {
               showToast('登录成功', 2000)

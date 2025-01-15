@@ -2,14 +2,17 @@ import router from '@ohos.router'
 import { getPhone } from '../api/api'
 import { URL } from '../utils/request'
 import { user } from '../viewModel/user'
+interface RouterParams {
+   data:user
+}
 @Entry
 @Preview
 @Component
 export struct MindPage {
   @State user:user = new user()
   async aboutToAppear(){
-    let p = router.getParams()['data']
-    this.user = p
+    let t:RouterParams = router.getParams() as RouterParams
+    this.user = t.data
   }
   build() {
     Column(){

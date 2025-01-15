@@ -3,6 +3,9 @@ import { deleteOrder, getLuckinOrdeList } from '../api/api';
 import PreferencesUtil from '../utils/PreferencesUtil';
 import { URL } from '../utils/request';
 import { Order } from '../viewModel/Order'
+interface orderL{
+  data:Order[]
+}
 @Entry
 @Preview
 @Component
@@ -10,9 +13,13 @@ struct OrderPage {
   @State order:Order[] = [];
 
   async aboutToAppear(){
-    let i = await PreferencesUtil.getPreferenceValue('app','Login') as string
-    let rp = await getLuckinOrdeList(i)
-    this.order = rp.data
+    let i = await PreferencesUtil.getPreferenceValue('app','Login') as string|undefined
+    if(i===undefined){}
+    else{
+      let rp:orderL = await getLuckinOrdeList(i)
+      this.order = rp.data
+    }
+
   }
 
   build() {

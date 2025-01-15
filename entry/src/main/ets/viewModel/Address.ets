@@ -1,10 +1,10 @@
 @Observed
-export class Address{
-  address:string
-  distance:string
-  location:string
-  time:string
-  isColor:boolean
+export class Address {
+  address: string;
+  distance: string;
+  location: string;
+  time: string;
+  isColor: boolean;
 
   constructor(
     address?: string,
@@ -13,11 +13,11 @@ export class Address{
     time?: string,
     isColor?: boolean,
   ) {
-    this.address = address
-    this.distance = distance
-    this.location = location
-    this.time = time
-    this.isColor = isColor
+    this.address = address ?? '';
+    this.distance = distance ?? '';
+    this.location = location ?? '';
+    this.time = time ?? '';
+    this.isColor = isColor ?? false;
   }
 }
 

@@ -5,7 +5,9 @@ import { user } from '../viewModel/user';
 import { getPhone } from '../api/api';
 import { URL } from '../utils/request';
 
-
+interface userRes{
+  data:user
+}
 /**
  * 我的
  */
@@ -14,9 +16,12 @@ import { URL } from '../utils/request';
 export struct Mine {
   @State user:user = new user()
   async aboutToAppear(){
-    let i = await PreferencesUtil.getPreferenceValue('app','Login') as string
-    let rp2 = await getPhone(i)
+    let userPreference : string | undefined;
+    userPreference= await PreferencesUtil.getPreferenceValue('app', 'Login') as string|undefined;
+    let rp2:userRes= await getPhone(userPreference||'')
     this.user = rp2.data
+
+
   }
 
   build() {
@@ -182,6 +187,10 @@ export struct Mine {
       .height('100%')
     }.backgroundColor('#EEEEEE')
   }
-}function Spacer(arg0: { flex: number; }) {
-throw new Error('Function not implemented.');
+}
+interface SpacerProps {
+  flex: number;
+}
+function Spacer(props: SpacerProps) {
+  throw new Error('Function not implemented.');
 }

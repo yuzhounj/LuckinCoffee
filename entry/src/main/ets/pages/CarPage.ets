@@ -3,17 +3,32 @@ import { AddLuckinShopcar, deleteLuckinShopcar, getLuckinShopcar, saveLuckinOrde
 import { URL } from '../utils/request';
 import { showToast } from '../utils/toast';
 import { ShopCar } from '../viewModel/ShopCar'
+// 定义 API 响应接口，假设 getLuckinShopcar 返回一个包含 data 属性的对象
+interface LuckinShopcarResponse {
+  data: ShopCar[];
+}
 @Component
 export struct CarPage {
   @State car:ShopCar[] = []
   @State money:number = 0;
   @State is:boolean = true
   @State goods:Array<number> = []
-  async aboutToAppear(){
-    let response = await getLuckinShopcar()
-    this.car =  response.data
-    for (let i = 0; i <this.car.length; i++) {
-      this.money = this.money + this.car[i].price
+  aboutToAppear(): void {
+    this.loadShopCarData();
+  }
+
+  private async loadShopCarData(): Promise<void> {
+    try {
+      const response:LuckinShopcarResponse= await getLuckinShopcar();
+      this.car = response.data;
+
+      // 确保 this.car 是一个数组，并且有 price 属性
+      if (Array.isArray(this.car)) {
+        this.money = this.car.reduce((sum, item) => sum + (item.price || 0), 0);
+      }
+    } catch (error) {
+      console.error('Failed to fetch shop car data:', error);
+      // 可以选择在此处显示用户友好的错误消息或采取其他措施
     }
   }
   build() {

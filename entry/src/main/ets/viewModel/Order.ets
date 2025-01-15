@@ -26,17 +26,17 @@ export class Order {
               address?:string,
               time?:string,
   ) {
-    this.resourcestr = resourcestr
-    this.title = title
-    this.price = price
-    this.user = user
-    this.sum = sum
-    this.cupshaped = cupshaped
-    this.brix = brix
-    this.temperature = temperature
-    this.money = money
-    this.address = address
-    this.time = time
-    this.id = id
+    this.resourcestr = resourcestr|| ''
+    this.title = title|| ''
+    this.price = price|| 0
+    this.user = user||''
+    this.sum = sum||0
+    this.cupshaped = cupshaped||''
+    this.brix = brix||''
+    this.temperature = temperature||''
+    this.money = money||0
+    this.address = address||''
+    this.time = time||''
+    this.id = id||0
   }
 }

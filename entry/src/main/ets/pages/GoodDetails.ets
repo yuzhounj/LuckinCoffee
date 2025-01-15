@@ -4,6 +4,9 @@ import PreferencesUtil from '../utils/PreferencesUtil';
 import { URL } from '../utils/request';
 import { coffee } from '../viewModel/Coffee'
 import { ShopCar } from '../viewModel/ShopCar';
+interface RouterParams {
+  data: coffee;
+}
 @Entry
 @Component
 export struct GoodDetails {
@@ -22,9 +25,11 @@ export struct GoodDetails {
   @State userPhone:string = ''
   car:ShopCar = new ShopCar()
   async aboutToAppear(){
-    let i = await PreferencesUtil.getPreferenceValue('app','Login') as string
-    this.userPhone = i
-    this.coffee = router.getParams()['data']
+    let i:string|undefined = await PreferencesUtil.getPreferenceValue('app','Login') as string|undefined
+    if(i===undefined){}
+    else{this.userPhone = i}
+    let t:RouterParams= router.getParams() as RouterParams
+    this.coffee=t.data;
   }
 
   build() {

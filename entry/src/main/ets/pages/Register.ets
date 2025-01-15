@@ -2,6 +2,16 @@ import router from '@ohos.router'
 import { SaveUser } from '../api/api'
 import { showToast } from '../utils/toast'
 import { user } from '../viewModel/user'
+interface RouterParams {
+  phone: string;
+  password: string;
+}
+interface stringRes {
+  data:string
+}
+interface userRes {
+  data:user
+}
 @Entry
 @Component
 struct Register {
@@ -173,7 +183,7 @@ struct Register {
                 onAccept: (value: TextPickerResult) => {
                   // 设置select为按下确定按钮时候的选中项index，这样当弹窗再次弹出时显示选中的是上一次确定的选项
                   console.log(this.user.gender)
-                  this.select = value.index
+                 if(typeof value.index === 'number'){this.select = value.index;}
                   console.log(this.fruits[this.select])
 
                   this.user.gender = this.fruits[this.select]
@@ -249,7 +259,7 @@ struct Register {
               return
             }
             console.log(this.user.gender)
-            let rp = await SaveUser(this.user)
+            let rp:stringRes = await SaveUser(this.user)
             this.start = rp.data
             if(this.start === "ok"){
               showToast('注册成功', 2000)

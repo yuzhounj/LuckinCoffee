@@ -4,7 +4,9 @@ import PreferencesUtil from '../utils/PreferencesUtil'
 import { URL } from '../utils/request'
 import { coffee } from '../viewModel/Coffee'
 import { user } from '../viewModel/user'
-
+interface userRes{
+  data:user
+}
 class IDataSource {
   list: ResourceStr
 
@@ -29,43 +31,46 @@ export struct homePage {
     new IDataSource($r('app.media.top4'))
   ]
   @State coffee: coffee[] = [
-    {
-      "resourcestr": "/images/goods/coffee_1.png",
-      "resourcestr2": "/images/details/coffee_detail_1.png",
-      "title": "生椰拿铁",
-      "title2": "3年突破7亿杯，原创YYDS!",
-      "title3": "3年突破7亿杯 | 清爽椰香 | 0乳糖",
-      "price": 13.00,
-      "price1": 21,
-      "discountprice": 30,
-    },
-    {
-      "resourcestr": "/images/goods/coffee_2.png",
-      "resourcestr2": "/images/details/coffee_detail_2.png",
-      "title": "葡萄柠檬茶(超大杯)",
-      "title2": "3年突破7亿杯，原创YYDS!",
-      "title3": "3年突破7亿杯 | 清爽椰香 | 0乳糖",
-      "price": 13.00,
-      "price1": 21,
-      "discountprice": 30,
-    },
-    {
-      "resourcestr": "/images/goods/coffee_3.png",
-      "resourcestr2": "/images/details/coffee_detail_3.png",
-      "title": "葡萄冰萃美式",
-      "title2": "3年突破7亿杯，原创YYDS!",
-      "title3": "3年突破7亿杯 | 清爽椰香 | 0乳糖",
-      "price": 13.00,
-      "price1": 21,
-      "discountprice": 30,
-    }
-  ]
+    new coffee(
+      "/images/goods/coffee_1.png",
+      "/images/details/coffee_detail_1.png",
+      "生椰拿铁",
+      "3年突破7亿杯，原创YYDS!",
+      "3年突破7亿杯 | 清爽椰香 | 0乳糖",
+      13.00,
+      30,
+      21
+    ),
+    new coffee(
+      "/images/goods/coffee_2.png",
+      "/images/details/coffee_detail_2.png",
+      "葡萄柠檬茶(超大杯)",
+      "3年突破7亿杯，原创YYDS!",
+      "3年突破7亿杯 | 清爽椰香 | 0乳糖",
+      13.00,
+      30,
+      21
+    ),
+    new coffee(
+      "/images/goods/coffee_3.png",
+      "/images/details/coffee_detail_3.png",
+      "葡萄冰萃美式",
+      "3年突破7亿杯，原创YYDS!",
+      "3年突破7亿杯 | 清爽椰香 | 0乳糖",
+      13.00,
+      30,
+      21
+    )
+  ];
   @State user: user = new user()
 
   async aboutToAppear() {
-    let i = await PreferencesUtil.getPreferenceValue('app', 'Login') as string
-    let rp2 = await getPhone(i)
+    let userPreference : string | undefined;
+    userPreference= await PreferencesUtil.getPreferenceValue('app', 'Login') as string|undefined;
+
+    let rp2:userRes= await getPhone(userPreference||'')
     this.user = rp2.data
+
   }
 
   build() {

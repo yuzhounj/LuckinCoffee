@@ -14,6 +14,12 @@ import { showToast } from '../utils/toast'
 import { Address, addressList } from '../viewModel/Address'
 import { coffee } from '../viewModel/Coffee'
 import { ShopCar } from '../viewModel/ShopCar'
+interface LuckinShopcarResponse {
+  data: ShopCar[];
+}
+interface goodsResponse {
+  data: coffee[];
+}
 
 @Entry
 @Preview
@@ -48,29 +54,51 @@ export struct GoodPage {
 
   scroller: Scroller = new Scroller()
 
-  async aboutToAppear(){
-    let response = await getLuckinShopcar()
-    this.car =  response.data
-    for (let i = 0; i <this.car.length; i++) {
-      this.money = this.money + this.car[i].price
-      this.money1 = this.money1 + this.car[i].price2
+  async aboutToAppear(): Promise<void> {
+    try {
+      // 获取购物车数据
+      const response: LuckinShopcarResponse = await getLuckinShopcar();
+      this.car = response.data;
+      for (const item of this.car) {
+        this.money += item.price || 0;
+        this.money1 += item.price2 || 0;
+      }
+
+      // 获取登录状态
+      let loginPreference: string | undefined;
+      try {
+        loginPreference = await PreferencesUtil.getPreferenceValue('app', 'Login') as string | undefined;
+      } catch (error) {
+        console.error('Failed to fetch login preference:', error);
+        loginPreference = undefined;
+      }
+      this.phone = loginPreference ?? '';
+
+      // 获取地址偏好
+      let addressPreference: string | undefined;
+      try {
+        addressPreference = await PreferencesUtil.getPreferenceValue('app', 'address') as string | undefined;
+      } catch (error) {
+        console.error('Failed to fetch address preference:', error);
+        addressPreference = undefined;
+      }
+
+      if (addressPreference) {
+        this.isAddress = false;
+        this.address = this.address1.find(item => item.address === addressPreference) || new Address();
+      }
+
+      // 获取商品列表
+      const goodsListResponse:goodsResponse = await getLuckinGoodsList(1);
+      this.coffee = goodsListResponse.data;
+
+      console.log('i:' + this.phone);
+      console.log('iiiii:' + addressPreference);
+      console.log('address111:', this.address);
+
+    } catch (error) {
+      console.error('Error in aboutToAppear:', error);
     }
-
-    let i = await PreferencesUtil.getPreferenceValue('app','Login') as string
-    console.log('i'+i)
-
-    let ii = await PreferencesUtil.getPreferenceValue('app','address') as string
-    this.address1 = addressList
-    if (ii!==undefined&&ii!==null){
-      this.isAddress = false
-      this.address = this.address1.filter(item=>item.address==ii)[0]
-    }
-    console.log('iiiii'+ii)
-    console.log('address111'+this.address1.filter(item=>item.address==ii)[0])
-
-    this.phone = i
-    let p =  await getLuckinGoodsList(1)
-    this.coffee = p.data
   }
 
 

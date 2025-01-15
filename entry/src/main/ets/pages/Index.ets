@@ -3,6 +3,9 @@ import { CarPage } from './CarPage'
 import { GoodPage } from './GoodPage'
 import { homePage } from './HomePage'
 import { Mine } from './Mine'
+interface RouterParams {
+  typeIndex: string;
+}
 @Entry
 @Component
 struct Index {
@@ -10,9 +13,9 @@ struct Index {
 
 
   aboutToAppear(){
-    const params = router.getParams()
-    if(params !== undefined && params['typeIndex'] !== undefined) {
-      this.typeIndex = parseInt(params['typeIndex'])
+    let params:RouterParams = router.getParams() as RouterParams
+    if(params !== undefined && params.typeIndex !== undefined) {
+      this.typeIndex = parseInt(params.typeIndex)
       console.log('testTab', `跳转到[${this.typeIndex}]`)
     }
   }

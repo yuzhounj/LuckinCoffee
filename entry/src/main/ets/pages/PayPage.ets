@@ -8,6 +8,13 @@ import { showToast } from '../utils/toast';
 import { Address, addressList } from '../viewModel/Address';
 import { Order } from '../viewModel/Order';
 import { ShopCar } from '../viewModel/ShopCar';
+interface LuckinShopcarResponse {
+  data: ShopCar[];
+}
+interface RouterParams {
+  is: boolean;
+  data:ShopCar
+}
 @Entry
 @Preview
 @Component
@@ -25,9 +32,9 @@ export struct payPage {
   @State address2:string = ''
 
   async onPageShow(){
-    let i = await PreferencesUtil.getPreferenceValue('app','address') as string
-    let phone = await PreferencesUtil.getPreferenceValue('app','Login') as string
-    this.userPhone = phone
+    let i = await PreferencesUtil.getPreferenceValue('app','address') as string|undefined
+    let phone = await PreferencesUtil.getPreferenceValue('app','Login') as string|undefined
+    this.userPhone = phone||''
     this.address1 = addressList
     if (i!==undefined&&i!==null){
       this.isAddress = false
@@ -36,17 +43,18 @@ export struct payPage {
   }
 
   async aboutToAppear(){
-    this.isCar = router.getParams()['is']
+    let t = router.getParams()  as RouterParams;
+    this.isCar=t.is;
     if (this.isCar) {
-      let response = await getLuckinShopcar()
+      let response:LuckinShopcarResponse  = await getLuckinShopcar()
       this.car =  response.data
       for (let i = 0; i <this.car.length; i++) {
         this.money = (this.money + this.car[i].price) * this.car[i].sum
         this.money1 = (this.money1 + this.car[i].price2) * this.car[i].sum
       }
     }else {
-      let p = router.getParams()['data']
-      this.car.push(p)
+      let t = router.getParams()  as RouterParams;
+      this.car.push(t.data)
       this.money = (this.money + this.car[0].price) * this.car[0].sum
       this.money1 = (this.money1 + this.car[0].price2) * this.car[0].sum
     }
