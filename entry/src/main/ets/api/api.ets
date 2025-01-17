@@ -2,7 +2,7 @@ import requestUtil from '../utils/request';
 import { Order } from '../viewModel/Order';
 import { ShopCar } from '../viewModel/ShopCar';
 import { user } from '../viewModel/user';
-
+import {resInfo}from '../viewModel/resInfo';
 
 export function saveLuckinShopcar(Shop:ShopCar) {
   return requestUtil.post(`/saveLuckinShopcar`,Shop)
@@ -36,16 +36,16 @@ export function getLuckinOrdeList(phone:string) {
   return requestUtil.get(`/getLuckinOrdeList/${phone}`)
 }
 
-export function LoginUser(phone:string,password:string){
-  return requestUtil.get(`/LoginUser/${phone}/${password}`)
+export function LoginUser(info:resInfo){
+  return requestUtil.post(`/login`,info)
 }
 
 export function SaveUser(user:user){
   return requestUtil.post(`/register`,user)
 }
 
-export function getPhone(id:string){
-  return requestUtil.get(`/phone/${id}`)
+export function getPhone(phone:string){
+  return requestUtil.post(`/getUserByPhone`,phone)
 }
 
 export function deleteOrder(id:number){

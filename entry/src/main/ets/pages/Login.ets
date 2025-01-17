@@ -2,13 +2,18 @@ import router from '@ohos.router'
 import { getPhone, LoginUser } from '../api/api'
 import PreferencesUtil from '../utils/PreferencesUtil'
 import { showToast } from '../utils/toast'
+import { resInfo } from '../viewModel/resInfo'
 import { user } from '../viewModel/user'
 interface RouterParams {
   phone: string;
   password: string;
 }
+interface info{
+  token:string
+  msg:string
+}
 interface stringRes {
-  data:string
+  data:info
 }
 interface userRes {
   data:user
@@ -155,8 +160,9 @@ struct Login {
               showToast('请先同意条款', 2000)
               return
             }
-            let rp:stringRes = await LoginUser(this.phone, this.password)
-            this.start = rp.data
+            let rp:stringRes = await LoginUser(new resInfo(this.phone,this.password))
+            AppStorage.SetOrCreate('token', rp.data.token);
+            this.start = rp.data.msg
             let rp2:userRes = await getPhone(this.phone)
             this.user = rp2.data
             if (this.start === "OK") {

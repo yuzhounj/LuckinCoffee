@@ -19,7 +19,7 @@ struct Register {
   @State user: user = new user()
   @State isGreen: boolean = true
   @State isLoading: boolean = false
-  @State password1:string = '123'
+  @State password1:string = ''
   @State start:string = ''
 
   @State select: number = 0
