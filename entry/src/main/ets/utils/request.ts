@@ -1,7 +1,7 @@
 import axios from '@ohos/axios'
-export const URL = 'http://192.168.52.1:8081'
+export const URL = 'http://192.168.31.174:8080'
 const requestUtil = axios.create({
-  baseURL: 'http://192.168.52.1:8081',
+  baseURL: 'http://192.168.31.174:8080',
   timeout: 5000,
   headers: {
     "Content-Type": "application/json"

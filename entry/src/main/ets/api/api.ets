@@ -41,7 +41,7 @@ export function LoginUser(phone:string,password:string){
 }
 
 export function SaveUser(user:user){
-  return requestUtil.post(`/SaveUser`,user)
+  return requestUtil.post(`/register`,user)
 }
 
 export function getPhone(id:string){

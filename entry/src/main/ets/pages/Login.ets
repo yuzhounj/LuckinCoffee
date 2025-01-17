@@ -17,8 +17,8 @@ interface userRes {
 @Entry
 @Component
 struct Login {
-  @State phone: string = "17328253147"
-  @State password: string = "abc123456"
+  @State phone: string = ""
+  @State password: string = ""
   @State ph: string = ""
   @State isGreen: boolean = true
   @State isLoading: boolean = false
