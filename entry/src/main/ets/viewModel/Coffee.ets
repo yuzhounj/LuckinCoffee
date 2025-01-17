@@ -1,5 +1,5 @@
 @Observed
-export class coffee { // 注意：类名首字母大写是常见的命名约定
+export class coffee {
   resourcestr: string;
   resourcestr2: string;
   title: string;
