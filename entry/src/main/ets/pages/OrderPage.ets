@@ -62,7 +62,7 @@ struct OrderPage {
                 .margin({top:10,bottom:20})
                 Row(){
                   Row(){
-                    Image(URL+item.resourcestr).width(90).height(90)
+                    Image($r(item.resourcestr)).width(90).height(90)
                     Column(){
                       Text(item.title).fontWeight(700).fontSize(18)
                       Text(item.temperature+'/'+item.cupshaped+'/'+item.brix).margin({top:10})

@@ -5,7 +5,7 @@ import { user } from '../viewModel/user';
 import {resInfo}from '../viewModel/resInfo';
 
 export function saveLuckinShopcar(Shop:ShopCar) {
-  return requestUtil.post(`/saveLuckinShopcar`,Shop)
+  return requestUtil.post(`/shop/save`,Shop)
 }
 
 export function AddLuckinShopcar(id:number,sum:number) {

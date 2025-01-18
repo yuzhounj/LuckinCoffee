@@ -199,7 +199,7 @@ export struct GoodPage {
                                   ForEach(this.coffee,(item:coffee)=>{
                                     Row(){
                                       Row(){
-                                        Image(URL+item.resourcestr)
+                                        Image($r(item.resourcestr))
                                           .width(80)
                                           .height(100)
                                         Column(){
@@ -405,7 +405,8 @@ export struct GoodPage {
                   }
                 })
               })
-          }else {
+          }
+          else {
             Button('不可结算')
               .backgroundColor('#B2BDEB')
               .height('50')
@@ -447,7 +448,7 @@ export struct GoodPage {
 
               ForEach(this.car,(item:ShopCar)=>{
                 Row(){
-                  Image(URL+item.resourcestr)
+                  Image($r(item.resourcestr))
                     .width(70).height(70)
                   Column(){
                     Text(item.title).fontSize(14)

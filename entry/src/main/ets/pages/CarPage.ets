@@ -48,7 +48,7 @@ export struct CarPage {
                 Column() {
                   ForEach(this.car, (item: ShopCar) => {
                     Row() {
-                      Image(URL+item.resourcestr).width(75).height(75)
+                      Image($r(item.resourcestr)).width(75).height(75)
                       Row() {
                         Column() {
                           Text(item.title).fontSize(18)
@@ -119,7 +119,7 @@ export struct CarPage {
                             this.goods = good
                           }
                         }).margin({left:-5})
-                      Image(URL+item.resourcestr).width(75).height(75)
+                      Image($r(item.resourcestr)).width(75).height(75)
                       Row() {
                         Column() {
                           Text(item.title).fontSize(18)

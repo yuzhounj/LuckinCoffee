@@ -110,7 +110,7 @@ export struct payPage {
               ForEach(this.car,(item:ShopCar)=>{
                 Row(){
                   Row(){
-                    Image(URL+item.resourcestr).width(80).height(80)
+                    Image($r(item.resourcestr)).width(80).height(80)
                     Column(){
                       Text(item.title)
                         .margin({bottom:10}).fontWeight(500).fontColor(Color.Black)

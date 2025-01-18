@@ -20,8 +20,8 @@ export class coffee {
     price1?: number
   ) {
     // 使用 nullish coalescing operator (??) 提供默认值
-    this.resourcestr = resourcestr ?? '';
-    this.resourcestr2 = resourcestr2 ?? '';
+    this.resourcestr = 'app.media.bottom1';
+    this.resourcestr2 = 'app.media.bottom1';
     this.title = title ?? '';
     this.title2 = title2 ?? '';
     this.title3 = title3 ?? '';

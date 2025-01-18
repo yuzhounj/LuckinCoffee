@@ -26,7 +26,7 @@ export class Order {
               address?:string,
               time?:string,
   ) {
-    this.resourcestr = resourcestr|| ''
+    this.resourcestr = 'app.media.bottom1'
     this.title = title|| ''
     this.price = price|| 0
     this.user = user||''
