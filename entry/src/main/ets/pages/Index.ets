@@ -41,10 +41,12 @@ struct Index {
           }
         }.tabBar(this.tabBuilder('我的', 3,$r('app.media.index6'),$r('app.media.index4')))
       }
+
       .backgroundColor('#FFFFFF')
       .scrollable(true)
       .barHeight(70)
       .onChange(index => this.typeIndex = index)
+
     }
     .width('100%')
     .height('100%')
